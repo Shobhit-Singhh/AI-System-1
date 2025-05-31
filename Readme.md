@@ -16,10 +16,10 @@ Build an AI system where users can upload their **set of instructions** and **kn
 ## Features
 
 ✅ **Key-Value Extraction**
-Extract structured information (entities, key-value pairs) from uploaded data.
+Extract structured information (entities, key-value pairs) from convertation history.
 
 ✅ **User Profile Building**
-Construct dynamic user profiles from provided instructions and extracted data.
+Construct dynamic user profiles from user's convertation via extracted data.
 
 ✅ **Context Awareness**
 Maintain conversational and session context for coherent multi-turn interactions.
@@ -63,8 +63,8 @@ cd gen-ai-system
 2️⃣ **Create virtual environment & activate**
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # on Windows: venv\Scripts\activate
+python -m venv AI_system
+source AI_system/bin/activate  # on Windows: AI_system\Scripts\activate
 ```
 
 3️⃣ **Install dependencies**
@@ -92,29 +92,14 @@ uvicorn api.main:app --reload
 ## Tech Stack
 
 * **LLMs** → OpenAI / Hugging Face transformers / custom fine-tuned models
-* **Vector DB** → FAISS / Pinecone / Chroma for embeddings + retrieval
+* **Vector DB** →  Chroma for embeddings + retrieval
 * **Backend** → FastAPI (for async APIs)
-* **RAG Orchestration** → LangChain / LlamaIndex
+* **RAG Orchestration** → LangChain and LanGraph
 * **Containerization** → Docker
 
----
-
-## Future Improvements
-
-* [ ] Add multi-user support
-* [ ] Integrate caching for faster retrieval
-* [ ] Add frontend dashboard for instruction upload and monitoring
-* [ ] Improve conditional reasoning module
-* [ ] Implement user-specific fine-tuning pipeline
 
 ---
 
 ## Contributing
 
 Pull requests are welcome! Please open issues or submit suggestions to improve this project.
-
----
-
-## License
-
-This project is licensed under [MIT License](LICENSE).
