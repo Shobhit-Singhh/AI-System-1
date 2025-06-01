@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyo
+*.pyd
+
+# Virtual environments
+AI_system/
+venv/
+.env/
+.env
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Data and embeddings
+data/raw/
+data/processed/
+data/embeddings/
+
+# Models
+models/checkpoints/
+models/*.bin
+models/*.pt
+models/*.h5
+
+# Configs (if sensitive)
+configs/*.local.yaml
+configs/*.secret.yaml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Docker
+*.tar
+docker-compose.override.yml
+
+# Tests and coverage
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+
+# MyPy, Pylint, Pyre
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# VSCode / IDEs
+.vscode/
+.idea/
+*.code-workspace

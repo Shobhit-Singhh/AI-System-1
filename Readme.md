@@ -35,7 +35,7 @@ Handle complex conditional logic using retrieval + generation workflows.
 ## Project Structure
 
 ```
-/gen-ai-system/
+/ai-system/
 ├── data/             # Raw, processed data, embeddings
 ├── models/           # Base models, fine-tuned models, RAG components
 ├── services/         # Core services (extraction, profiling, context, rag)
@@ -57,7 +57,7 @@ Handle complex conditional logic using retrieval + generation workflows.
 
 ```bash
 git clone <repo-url>
-cd gen-ai-system
+cd ai-system
 ```
 
 2️⃣ **Create virtual environment & activate**
