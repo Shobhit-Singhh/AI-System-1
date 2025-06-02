@@ -2,3 +2,6 @@ python-dotenv
 langchain
 langchain_community
 langchain_core
+langchain_experimental
+langchain_openai
+chromadb

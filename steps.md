@@ -1,26 +1,32 @@
 # GenAI Project Setup Checklist (Prompting + RAG + LangChain/LangGraph)
-
 ---
 
 ## Project Setup
-- [.] Setup GitHub repository + initialize git
-- [ ] Set up virtual environment (`venv` or `conda`)
-- [ ] Create `requirements.txt` and folder structure
-- [ ] Add `.gitignore`
-- [ ] Create `.env` file for API keys (OpenAI, Pinecone, etc.)
+- [x] Setup GitHub repository + initialize git
+- [x] Set up virtual environment (`venv` or `conda`)
+- [x] Create `requirements.txt` and folder structure
+- [x] Add `.gitignore`
+- [x] Create `.env` file for API keys (OpenAI, Pinecone, etc.)
 
 ---
 
 ## Knowledge Base Preparation
-- [ ] Define input Files
-- [ ] Write Indexing scripts 
-    - [ ] Loader
-    - [ ] Splitter
-    - [ ] Choose Augmentation model (OpenAI, Gemini etc.)
-    - [ ] Choose embedding model (OpenAI, HuggingFace, etc.)
-- [ ] Choose vector DB (FAISS, Chroma, Pinecone, Weaviate)
-- [ ] Augmentation
-- [ ] Retriever
+- [x] Define input Files
+- [x] Write Indexing scripts 
+    - [x] Loader
+    - [x] Splitter
+    - [x] Choose embedding model (OpenAI, HuggingFace, etc.)
+- [x] Choose vector DB (FAISS, Chroma, Pinecone, Weaviate)
+- [x] Retriever
+
+---
+
+## Agumentation and paraphrasing
+- [x] Maintain a list of existing topics
+- [x] Push the existing chunks into LLM and classify it in the existing topic or a new one
+- [x] append all the similar topic together and paraphrase it specifically for RAG retrivals
+- [x] generate embedding and store it into VDB
+- [x] Prepare a general perpose prompt to automate this
 
 ---
 

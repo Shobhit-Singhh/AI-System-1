@@ -1,8 +1,6 @@
  1. Major Depressive Disorder (MDD)
-
  Core Criteria: Presence of ≥5 symptoms during the same 2-week period, representing a change from previous functioning; at least one symptom is either (1) depressed mood or (2) loss of interest or pleasure.
  Symptoms include:
-
   1. Depressed mood most of the day, nearly every day.
   2. Markedly diminished interest or pleasure in all, or almost all, activities most of the day.
   3. Significant weight loss when not dieting or weight gain, or decrease or increase in appetite nearly every day.
@@ -14,10 +12,8 @@
   9. Recurrent thoughts of death, recurrent suicidal ideation without a specific plan, or a suicide attempt or a specific plan for committing suicide.
 
  2. Generalized Anxiety Disorder (GAD)
-
  Core Criteria: Excessive anxiety and worry, occurring more days than not for at least 6 months, about a number of events or activities.
  Symptoms (≥3 required):
-
   1. Restlessness or feeling keyed up or on edge.
   2. Being easily fatigued.
   3. Difficulty concentrating or mind going blank.
@@ -26,11 +22,9 @@
   6. Sleep disturbance (difficulty falling or staying asleep, or restless, unsatisfying sleep). 
 
  3. Bipolar I Disorder
-
  Core Criteria: At least one manic episode, which may be preceded or followed by hypomanic or major depressive episodes.
  Manic Episode: A distinct period of abnormally and persistently elevated, expansive, or irritable mood and increased goal-directed activity or energy, lasting at least 1 week.
  Symptoms (≥3 required):
-
   1. Inflated self-esteem or grandiosity.
   2. Decreased need for sleep.
   3. More talkative than usual or pressure to keep talking.
@@ -40,9 +34,7 @@
   7. Excessive involvement in activities that have a high potential for painful consequences. 
 
  4. Schizophrenia
-
  Core Criteria: Two (or more) of the following, each present for a significant portion of time during a 1-month period (or less if successfully treated). At least one must be (1), (2), or (3):
-
   1. Delusions.
   2. Hallucinations.
   3. Disorganized speech.
@@ -51,10 +43,8 @@
  Duration: Continuous signs of the disturbance persist for at least 6 months.
 
  5. Borderline Personality Disorder (BPD)
-
  Core Criteria: A pervasive pattern of instability in interpersonal relationships, self-image, and affects, and marked impulsivity, beginning by early adulthood and present in a variety of contexts.
  Symptoms (≥5 required):
-
   1. Frantic efforts to avoid real or imagined abandonment.
   2. A pattern of unstable and intense interpersonal relationships.
   3. Identity disturbance.
@@ -66,10 +56,8 @@
   9. Transient, stress-related paranoid ideation or severe dissociative symptoms.
 
  6. Obsessive–Compulsive Personality Disorder (OCPD)
-
  Core Criteria: A pervasive pattern of preoccupation with orderliness, perfectionism, and mental and interpersonal control, at the expense of flexibility, openness, and efficiency.
  Symptoms (≥4 required):
-
   1. Preoccupation with details, rules, lists, order, organization, or schedules.
   2. Perfectionism that interferes with task completion.
   3. Excessive devotion to work and productivity to the exclusion of leisure activities and friendships.
@@ -80,10 +68,8 @@
   8. Shows rigidity and stubbornness. 
 
  7. Antisocial Personality Disorder (ASPD)
-
  Core Criteria: A pervasive pattern of disregard for and violation of the rights of others, occurring since age 15 years.
  Symptoms (≥3 required):
-
   1. Failure to conform to social norms with respect to lawful behaviors.
   2. Deceitfulness.
   3. Impulsivity or failure to plan ahead.
@@ -94,20 +80,16 @@
  Additional Requirements: The individual is at least 18 years old; there is evidence of conduct disorder with onset before age 15 years. 
 
  8. Attention-Deficit/Hyperactivity Disorder (ADHD)
-
  Core Criteria: A persistent pattern of inattention and/or hyperactivity-impulsivity that interferes with functioning or development.
  Presentations:
-
    Predominantly Inattentive: Symptoms include failure to give close attention to details, difficulty sustaining attention, not listening when spoken to directly, and forgetfulness.
    Predominantly Hyperactive-Impulsive: Symptoms include fidgeting, leaving seat in situations when remaining seated is expected, running or climbing in inappropriate situations, and talking excessively.
    Combined Presentation: Criteria are met for both inattention and hyperactivity-impulsivity.
  Duration: Several symptoms were present before age 12 years and are present in two or more settings.&x20;
 
  9. Paranoid Personality Disorder
-
  Core Criteria: A pervasive distrust and suspiciousness of others such that their motives are interpreted as malevolent.
  Symptoms (≥4 required):
-
   1. Suspects, without sufficient basis, that others are exploiting, harming, or deceiving them.
   2. Preoccupied with unjustified doubts about the loyalty or trustworthiness of friends or associates.
   3. Reluctant to confide in others because of unwarranted fear that the information will be used maliciously.
