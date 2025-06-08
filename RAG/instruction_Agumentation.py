@@ -5,68 +5,80 @@ from langchain_openai import ChatOpenAI
 from typing import List, Tuple
 from langchain_core.documents import Document
 
-def LLM_condition_instruction_generator(chunks: List[Document]) -> List[Tuple[str, str]]:
+def LLM_instruction_manual_enricher(chunks: List[Document]) -> List[Tuple[str, str]]:
     """
-    Generate condition-instruction pairs from document chunks for dynamic RAG prompting.
+    Enrich and expand existing condition-behavior chunks into comprehensive instruction manuals.
     
     Args:
-        chunks: List of Document objects containing content to analyze
+        chunks: List of Document objects containing existing condition-behavior descriptions
         
     Returns:
-        List of tuples where each tuple contains (condition, instruction)
+        List of tuples where each tuple contains (enriched_condition, enriched_instruction_manual)
     """
     llm = ChatOpenAI(model="gpt-4", temperature=0.2)  # Balanced creativity and consistency
     
     # Define the output structure
-    class ConditionInstructionPairs(BaseModel):
-        pairs: List[Tuple[str, str]] = Field(
-            description="List of condition-instruction pairs where each tuple contains (condition, instruction)"
-        )
+    class EnrichedInstructionManual(BaseModel):
+        enriched_condition: str = Field(description="Detailed, comprehensive condition description with context and triggers")
+        enriched_instruction_manual: str = Field(description="Complete, detailed instruction manual for AI agent behavior")
     
     # Define the prompt template
     template = PromptTemplate(
         input_variables=["chunk_content"],
-        template="""You are an expert prompt engineer and behavioral instruction designer.
+        template="""You are an expert AI instruction manual writer and behavioral specification designer.
 
-Your task is to analyze the provided document chunk and generate comprehensive condition-instruction pairs that can be used in a dynamic RAG (Retrieval-Augmented Generation) system.
+        Your task is to take an existing condition-behavior description and transform it into a comprehensive, detailed instruction manual that an AI agent can follow precisely.
 
-**Input Content:**
-{chunk_content}
+        **Input Content (Existing Condition-Behavior Description):**
+        {chunk_content}
 
-**Analysis Framework:**
-1. **Content Analysis**: Deeply analyze the chunk to understand its core concepts, themes, and knowledge domains
-2. **Context Recognition**: Identify different scenarios, situations, or contexts where this content would be relevant
-3. **Behavioral Mapping**: Determine what specific behaviors, responses, or approaches the LLM should adopt for each context
-4. **Instruction Crafting**: Create precise, actionable instructions that guide LLM behavior for each identified condition
+        **Your Mission:**
+        Analyze the provided chunk which contains a condition and corresponding AI behavior description. Your goal is to ENRICH and EXPAND both the condition and the behavioral instructions into a comprehensive manual.
 
-**Generation Guidelines:**
-- **Conditions** should be specific, measurable scenarios that can be matched against user queries or contexts
-- **Instructions** should be clear, actionable behavioral directives that tell the LLM exactly how to respond
-- Generate multiple diverse condition-instruction pairs per chunk (aim for 3-5 pairs minimum)
-- Cover different aspects: technical depth, audience level, response style, formatting, tone, etc.
-- Make conditions specific enough to avoid overlap but broad enough to be useful
-- Ensure instructions are practical and implementable
+        **Enrichment Framework:**
 
-**Examples of Good Pairs:**
-- Condition: "User asks about technical implementation details of quantum computing algorithms"
-  Instruction: "Provide step-by-step technical explanations with mathematical formulations, code examples where applicable, and mention specific quantum gates and circuit designs"
+        1. **Condition Enrichment:**
+        - Expand the condition with detailed context, scenarios, and triggers
+        - Add specific indicators, keywords, or patterns that would activate this condition
+        - Include edge cases and variations of the condition
+        - Specify when this condition applies vs when it doesn't
+        - Add measurable criteria for condition detection
 
-- Condition: "User needs beginner-friendly explanation of complex medical terminology"
-  Instruction: "Use simple analogies, avoid jargon, provide everyday examples, and break down complex terms into understandable components"
+        2. **Instruction Manual Enrichment:**
+        - Transform basic behavior descriptions into step-by-step detailed instructions
+        - Add specific response formats, tone guidelines, and communication styles
+        - Include examples of appropriate responses and outputs
+        - Specify what to avoid and common pitfalls
+        - Add escalation procedures and fallback behaviors
+        - Include quality checks and success criteria
+        - Provide specific phrases, templates, or frameworks to use
 
-**Output Format:**
-{format_instructions}
+        **Quality Standards:**
+        - Make instructions so detailed that any AI agent could follow them consistently
+        - Include specific examples and counter-examples
+        - Add measurable success criteria
+        - Ensure completeness - cover all aspects of the desired behavior
+        - Make conditions precise enough to avoid ambiguity
+        - Include context awareness and situational adaptability
 
-**Important:** Each condition should be a distinct scenario, and each instruction should provide specific behavioral guidance for that scenario.""",
+        **Example Transformation:**
+        Input: "When user asks about medical advice, be cautious and refer to professionals"
+        Output Condition: "User query contains medical symptoms, health concerns, diagnostic requests, treatment questions, medication inquiries, or requests for medical opinions. Indicators include: pain descriptions, symptom lists, 'should I see a doctor', medication names, health condition names, diagnostic terminology."
+        Output Manual: "1. Acknowledge the user's concern with empathy. 2. Clearly state 'I cannot provide medical diagnosis or treatment advice.' 3. Recommend consulting healthcare professionals. 4. Offer to help find general health information or direct to reputable medical resources. 5. Avoid any language that could be interpreted as diagnostic. 6. Never suggest specific medications or treatments. 7. If emergency indicators present (chest pain, difficulty breathing, etc.), immediately recommend emergency services. 8. Maintain supportive tone while being firm about limitations."
+
+        **Output Format:**
+        {format_instructions}
+
+        **Remember:** Transform the basic condition-behavior into a comprehensive manual that leaves no room for interpretation or inconsistent application.""",
         validate_template=True,
-        partial_variables={"format_instructions": PydanticOutputParser(pydantic_object=ConditionInstructionPairs).get_format_instructions()}
+        partial_variables={"format_instructions": PydanticOutputParser(pydantic_object=EnrichedInstructionManual).get_format_instructions()}
     )
     
     # Build the chain
-    output_parser = PydanticOutputParser(pydantic_object=ConditionInstructionPairs)
+    output_parser = PydanticOutputParser(pydantic_object=EnrichedInstructionManual)
     chain = template | llm | output_parser
     
-    all_condition_instruction_pairs = []
+    enriched_instruction_manuals = []
     
     for i, chunk in enumerate(chunks):
         if not isinstance(chunk, Document):
@@ -76,76 +88,79 @@ Your task is to analyze the provided document chunk and generate comprehensive c
             continue
         
         try:
-            print(f"Processing chunk {i+1}/{len(chunks)}...")
+            print(f"Enriching instruction manual for chunk {i+1}/{len(chunks)}...")
             
-            # Generate condition-instruction pairs for this chunk
+            # Generate enriched instruction manual for this chunk
             response = chain.invoke({
                 "chunk_content": chunk.page_content
             })
             
-            # Extract pairs from response
-            pairs = response.pairs
+            # Extract the enriched condition and instruction manual
+            enriched_condition = response.enriched_condition
+            enriched_manual = response.enriched_instruction_manual
+            pair = (enriched_condition, enriched_manual)
             
-            print(f"Generated {len(pairs)} condition-instruction pairs from chunk {i+1}")
+            print(f"Generated enriched instruction manual from chunk {i+1}")
+            print(f"  Enriched Condition: {enriched_condition}")
+            print(f"  Manual Length: {len(enriched_manual)} characters")
+            print()
             
             # Add to master list
-            all_condition_instruction_pairs.extend(pairs)
-            
-            # Optional: Print pairs for review
-            for j, (condition, instruction) in enumerate(pairs):
-                print(f"  Pair {j+1}:")
-                print(f"    Condition: {condition[:100]}...")
-                print(f"    Instruction: {instruction[:100]}...")
-                print()
+            enriched_instruction_manuals.append(pair)
                 
         except Exception as e:
             print(f"Error processing chunk {i+1}: {e}")
             continue
     
-    print(f"\nTotal condition-instruction pairs generated: {len(all_condition_instruction_pairs)}")
-    return all_condition_instruction_pairs
+    print(f"\nTotal enriched instruction manuals generated: {len(enriched_instruction_manuals)}")
+    return enriched_instruction_manuals
 
-def save_condition_instruction_pairs(pairs: List[Tuple[str, str]], output_file: str = "condition_instruction_pairs.txt"):
+def save_enriched_instruction_manuals(enriched_manuals: List[Tuple[str, str]], output_file: str = "enriched_instruction_manuals.txt"):
     """
-    Save condition-instruction pairs to a file in a format suitable for RAG indexing.
+    Save enriched instruction manuals to a file.
     
     Args:
-        pairs: List of (condition, instruction) tuples
+        enriched_manuals: List of (enriched_condition, enriched_instruction_manual) tuples
         output_file: Path to output file
     """
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
-            for i, (condition, instruction) in enumerate(pairs):
-                f.write(f"PAIR_{i+1}:\n")
-                f.write(f"CONDITION: {condition}\n")
-                f.write(f"INSTRUCTION: {instruction}\n")
+            f.write("ENRICHED AI AGENT INSTRUCTION MANUALS\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for i, (condition, manual) in enumerate(enriched_manuals):
+                f.write(f"MANUAL #{i+1}:\n")
+                f.write("=" * 40 + "\n")
+                f.write(f"CONDITION:\n{condition}\n\n")
+                f.write(f"INSTRUCTION MANUAL:\n{manual}\n")
                 f.write("-" * 80 + "\n\n")
         
-        print(f"Condition-instruction pairs saved to: {output_file}")
+        print(f"Enriched instruction manuals saved to: {output_file}")
         
     except Exception as e:
-        print(f"Error saving pairs to file: {e}")
+        print(f"Error saving manuals to file: {e}")
 
-def convert_pairs_to_rag_documents(pairs: List[Tuple[str, str]]) -> List[Document]:
+def convert_manuals_to_rag_documents(enriched_manuals: List[Tuple[str, str]]) -> List[Document]:
     """
-    Convert condition-instruction pairs to Document objects for RAG indexing.
+    Convert enriched instruction manuals to Document objects for RAG indexing.
     
     Args:
-        pairs: List of (condition, instruction) tuples
+        enriched_manuals: List of (enriched_condition, enriched_instruction_manual) tuples
         
     Returns:
-        List of Document objects where page_content contains the condition 
-        and metadata contains the corresponding instruction
+        List of Document objects where page_content contains the enriched condition 
+        and metadata contains the corresponding enriched instruction manual
     """
     rag_documents = []
     
-    for i, (condition, instruction) in enumerate(pairs):
+    for i, (condition, manual) in enumerate(enriched_manuals):
         doc = Document(
             page_content=condition,  # This will be indexed for similarity search
             metadata={
-                "instruction": instruction,  # This will be retrieved as the prompt instruction
-                "pair_id": i,
-                "type": "condition_instruction_pair"
+                "instruction_manual": manual,  # This will be retrieved as the detailed prompt instruction
+                "manual_id": i,
+                "type": "enriched_instruction_manual",
+                "manual_length": len(manual)
             }
         )
         rag_documents.append(doc)
@@ -153,52 +168,52 @@ def convert_pairs_to_rag_documents(pairs: List[Tuple[str, str]]) -> List[Documen
     return rag_documents
 
 def example_usage():
-    """Example of how to use the condition-instruction generator."""
+    """Example of how to use the instruction manual enricher."""
     
-    # Sample chunks (replace with your actual chunks)
+    # Sample chunks with existing condition-behavior descriptions
     sample_chunks = [
         Document(page_content="""
-        Machine learning algorithms require careful hyperparameter tuning to achieve optimal performance. 
-        Common hyperparameters include learning rate, batch size, number of epochs, and regularization strength. 
-        Grid search and random search are traditional approaches, while more advanced methods like Bayesian 
-        optimization and evolutionary algorithms can be more efficient for complex parameter spaces.
+        When a user asks about medical advice, the AI should be cautious and refer them to healthcare professionals.
+        The agent should not provide diagnostic information or treatment recommendations.
         """),
         
         Document(page_content="""
-        Quantum computing leverages quantum mechanical phenomena such as superposition and entanglement 
-        to process information. Quantum bits (qubits) can exist in multiple states simultaneously, 
-        allowing quantum computers to explore many solutions in parallel. However, quantum systems 
-        are fragile and require extremely low temperatures and isolation from environmental interference.
+        If the user seems frustrated or angry, the AI agent should remain calm, acknowledge their feelings,
+        and try to de-escalate the situation by being empathetic and solution-focused.
         """),
         
         Document(page_content="""
-        In clinical psychology, cognitive behavioral therapy (CBT) is an evidence-based approach that 
-        focuses on identifying and changing negative thought patterns and behaviors. CBT typically 
-        involves homework assignments, thought records, and behavioral experiments. The therapeutic 
-        relationship and patient engagement are crucial factors for successful outcomes.
+        When handling sensitive personal information, the AI must prioritize privacy and security.
+        It should not store, share, or reference personal data in future conversations.
+        The agent should remind users about data privacy practices when appropriate.
+        """),
+        
+        Document(page_content="""
+        For technical coding questions, the AI should provide clear, working examples with explanations.
+        Code should be well-commented and include error handling where appropriate.
+        The agent should also suggest best practices and potential improvements.
         """)
     ]
     
-    print("Starting condition-instruction pair generation...")
+    print("Starting instruction manual enrichment...")
     
-    # Generate pairs
-    pairs = LLM_condition_instruction_generator(sample_chunks)
+    # Generate enriched manuals
+    enriched_manuals = LLM_instruction_manual_enricher(sample_chunks)
     
     # Save to file
-    save_condition_instruction_pairs(pairs, "example_pairs.txt")
+    save_enriched_instruction_manuals(enriched_manuals, "example_enriched_manuals.txt")
     
     # Convert to RAG documents
-    rag_docs = convert_pairs_to_rag_documents(pairs)
+    rag_docs = convert_manuals_to_rag_documents(enriched_manuals)
     
     print(f"\nCreated {len(rag_docs)} RAG documents for indexing")
-    print("\nExample RAG document:")
+    print("\nExample enriched manual:")
     if rag_docs:
-        print(f"Content (for indexing): {rag_docs[0].page_content}")
-        print(f"Instruction (for prompting): {rag_docs[0].metadata['instruction']}")
+        print(f"Enriched Condition: {rag_docs[0].page_content}")
+        print(f"Manual Preview: {rag_docs[0].metadata['instruction_manual']}")
     
-    return pairs, rag_docs
+    return enriched_manuals, rag_docs
 
-# Advanced function for topic-aware pair generation
 def LLM_topic_aware_condition_instruction_generator(classified_chunks: dict[str, List[Document]]) -> dict[str, List[Tuple[str, str]]]:
     """
     Generate condition-instruction pairs with topic awareness.
@@ -227,5 +242,4 @@ def LLM_topic_aware_condition_instruction_generator(classified_chunks: dict[str,
     return topic_pairs
 
 if __name__ == "__main__":
-    # Run the example
-    pairs, rag_docs = example_usage()
+    enriched_manuals, rag_docs = example_usage()

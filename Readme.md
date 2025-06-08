@@ -100,6 +100,13 @@ uvicorn api.main:app --reload
 
 ---
 
+## Future
+* **Metadata Embedding Fusion** → Consider combining metadata (like category name or source) into embedding input to improve representation.
+* **Add rechunking in chunks merge** → Consider rechunking the chunk classes if needed(large classes) after merging them to maintain the Granularity of the Information.
+
+
+
 ## Contributing
 
 Pull requests are welcome! Please open issues or submit suggestions to improve this project.
+
